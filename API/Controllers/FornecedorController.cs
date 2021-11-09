@@ -13,9 +13,9 @@ namespace UStart.API.Controllers
     /// </summary>
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/cliente")]
+    [Route("api/v{version:apiVersion}/fornecedor")]
     [Authorize]
-    public class ClienteController : ControllerBase
+    public class FornecedorController : ControllerBase
     {
         private readonly IFornecedorRepository fornecedorRepository;
         private readonly FornecedorWorkflow FornecedorWorkflow;
@@ -46,7 +46,7 @@ namespace UStart.API.Controllers
             if (fornecedorWorkflow.IsValid()){
                 return Ok();
             }
-            return BadRequest(clienteWorkflow.GetErrors());
+            return BadRequest(fornecedorWorkflow.GetErrors());
         }
 
         [HttpPut]

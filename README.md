@@ -39,7 +39,7 @@ dotnet ef migrations add grupo_produto -c UStartContext --project ../Infrastruct
 
 #Criar clientes
 cd API
-dotnet ef migrations add cliente -c UStartContext --project ../Infrastructure/Infrastructure.csproj
+dotnet ef migrations add fornecedor -c UStartContext --project ../Infrastructure/Infrastructure.csproj
 
 #Criar produto
 cd API
