@@ -3,7 +3,7 @@ using UStart.Domain.Commands;
 
 namespace UStart.Domain.Entities
 {
-    public class Cliente
+    public class Fornecedor
     {
         public Guid Id { get; private set; }
         public string CodigoExterno { get; private set; }
@@ -11,7 +11,6 @@ namespace UStart.Domain.Entities
         public String Nome { get; private set; }
         public String RazaoSocial { get; private set; }
         public String CNPJ { get; private set; }
-        public String CPF { get; private set; }
         public String Rua { get; private set; }
         public String Numero { get; private set; }
         public String Complemento { get; private set; }
@@ -22,32 +21,31 @@ namespace UStart.Domain.Entities
         public String CEP { get; private set; }
         public String Fone { get; private set; }
         public String Email { get; private set; }
-        public Decimal LimiteDeCredito { get; private set; }
+       
 
-        public Cliente()
+        public Fornecedor()
         {
             
         }
 
-        public Cliente(ClienteCommand command)
+        public Fornecedor(FornecedorCommand command)
         {
             Id = command.Id == Guid.Empty ? Guid.NewGuid() : command.Id;   
             AtualizarCampos(command);            
         }
 
-        public void Update(ClienteCommand command)
+        public void Update(FornecedorCommand command)
         {
             AtualizarCampos(command);
         }
 
-        private void AtualizarCampos(ClienteCommand command)
+        private void AtualizarCampos(FornecedorCommand command)
         {            
             CodigoExterno = command.CodigoExterno;                        
             Ativo = command.Ativo;                        
             Nome = command.Nome;                        
             RazaoSocial = command.RazaoSocial;                        
-            CNPJ = command.CNPJ;                        
-            CPF = command.CPF;                        
+            CNPJ = command.CNPJ;                                     
             Rua = command.Rua;                        
             Numero = command.Numero;                        
             Complemento = command.Complemento;                        
@@ -57,8 +55,7 @@ namespace UStart.Domain.Entities
             CidadeNome = command.CidadeNome;                        
             CEP = command.CEP;                        
             Fone = command.Fone;                        
-            Email = command.Email;                        
-            LimiteDeCredito = command.LimiteDeCredito;                        
+            Email = command.Email;                                             
         }
 
     }

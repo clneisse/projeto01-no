@@ -2,7 +2,7 @@ using System;
 
 namespace UStart.Domain.Commands
 {
-    public class ClienteCommand
+    public class FornecedorCommand
     {
         public Guid Id { get; set; }
         public string CodigoExterno { get; set; }
@@ -10,7 +10,6 @@ namespace UStart.Domain.Commands
         public String Nome { get; set; }
         public String RazaoSocial { get; set; }
         public String CNPJ { get; set; }
-        public String CPF { get; set; }
         public String Rua { get; set; }
         public String Numero { get; set; }
         public String Complemento { get; set; }
@@ -21,8 +20,6 @@ namespace UStart.Domain.Commands
         public String CEP { get; set; }
         public String Fone { get; set; }
         public String Email { get; set; }
-        public Decimal LimiteDeCredito { get; set; }
-        
     }
 
 }

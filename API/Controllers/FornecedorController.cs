@@ -17,33 +17,33 @@ namespace UStart.API.Controllers
     [Authorize]
     public class ClienteController : ControllerBase
     {
-        private readonly IClienteRepository clienteRepository;
-        private readonly ClienteWorkflow clienteWorkflow;
+        private readonly IFornecedorRepository fornecedorRepository;
+        private readonly FornecedorWorkflow FornecedorWorkflow;
 
-        public ClienteController(IClienteRepository clienteRepository, ClienteWorkflow clienteWorkflow)
+        public FornecedorController(IFornecedorRepository fornecedorRepository, FornecedorWorkflow fornecedorWorkflow)
         {
-            this.clienteRepository = clienteRepository;
-            this.clienteWorkflow = clienteWorkflow;
+            this.fornecedorRepository = fornecedorRepository;
+            this.fornecedorWorkflow = fornecedorWorkflow;
         }
         
         [HttpGet]        
         public IActionResult Get([FromQuery] string pesquisa)
         {
-            return Ok(clienteRepository.Pesquisar(pesquisa));
+            return Ok(fornecedorRepository.Pesquisar(pesquisa));
         }
         
         [HttpGet]    
         [Route("{id}")]    
         public IActionResult GetPorId([FromRoute] Guid id)
         {
-            return Ok(clienteRepository.ConsultarPorId(id));
+            return Ok(fornecedorRepository.ConsultarPorId(id));
         }
 
         [HttpPost]
-        public IActionResult Adicionar([FromBody] ClienteCommand command )
+        public IActionResult Adicionar([FromBody] FornecedorCommand command )
         {
-            clienteWorkflow.Add(command);
-            if (clienteWorkflow.IsValid()){
+            fornecedorWorkflow.Add(command);
+            if (fornecedorWorkflow.IsValid()){
                 return Ok();
             }
             return BadRequest(clienteWorkflow.GetErrors());
@@ -51,23 +51,23 @@ namespace UStart.API.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Atualizar([FromRoute] Guid id, [FromBody] ClienteCommand command )
+        public IActionResult Atualizar([FromRoute] Guid id, [FromBody] FornecedorCommand command )
         {
-            clienteWorkflow.Update(id, command);
-            if (clienteWorkflow.IsValid()){
+            fornecedorWorkflow.Update(id, command);
+            if (fornecedorWorkflow.IsValid()){
                 return Ok();
             }
-            return BadRequest(clienteWorkflow.GetErrors());
+            return BadRequest(fornecedorWorkflow.GetErrors());
         }
 
         [HttpDelete("{id}")]        
         public IActionResult Excluir([FromRoute] Guid id)
         {
-            clienteWorkflow.Delete(id);
-            if (clienteWorkflow.IsValid()){
+            fornecedorWorkflow.Delete(id);
+            if (fornecedorWorkflow.IsValid()){
                 return Ok();
             }
-            return BadRequest(clienteWorkflow.GetErrors());
+            return BadRequest(fornecedorWorkflow.GetErrors());
         }
     }
 }

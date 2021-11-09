@@ -7,10 +7,12 @@ namespace UStart.Domain.Entities
     {
         public Guid Id { get; private set; }
         public Guid GrupoProdutoId { get; private set; }
+        public Guid FornecedorId {get; private set; }
         public GrupoProduto GrupoProduto { get; private set; }
         public string Nome { get; private set; }
         public string Descricao { get; private set; }
-        public decimal Preco { get; private set; }
+        public decimal PrecoCusto { get; private set; }
+        public decimal PrecoVenda { get; private set; }
         public string UrlImagem { get; private set; }
         public string CodigoExterno { get; private set; }
 
@@ -35,7 +37,8 @@ namespace UStart.Domain.Entities
             Descricao = command.Descricao;
             GrupoProdutoId = command.GrupoProdutoId;
             Nome = command.Nome;            
-            Preco = command.Preco;
+            PrecoCusto = command.PrecoCusto;
+            PrecoVenda = command.PrecoVenda;
             UrlImagem = command.UrlImagem;
             CodigoExterno = command.CodigoExterno;
         }

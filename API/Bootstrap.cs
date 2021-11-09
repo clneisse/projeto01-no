@@ -120,7 +120,7 @@ namespace UStart.API
             // Register your repositories here
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
             services.AddTransient<IGrupoProdutoRepository, GrupoProdutoRepository>();
-            services.AddTransient<IClienteRepository, ClienteRepository>();
+            services.AddTransient<IFornecedorRepository, FornecedorRepository>();
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
         }
 
@@ -129,7 +129,7 @@ namespace UStart.API
             // Register your workflows here
             services.AddTransient<UsuarioWorkflow>();
             services.AddTransient<GrupoProdutoWorkflow>();
-            services.AddTransient<ClienteWorkflow>();
+            services.AddTransient<FornecedorWorkflow>();
             services.AddTransient<ProdutoWorkflow>();
         }
 
