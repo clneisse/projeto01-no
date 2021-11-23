@@ -16,7 +16,6 @@ namespace UStart.Domain.Commands
         public String Bairro { get; set; }
         public String EstadoId { get; set; }
         public String CidadeId { get; set; }
-        public String CidadeNome { get; set; }
         public String CEP { get; set; }
         public String Fone { get; set; }
         public String Email { get; set; }

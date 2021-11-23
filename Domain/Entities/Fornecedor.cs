@@ -17,7 +17,6 @@ namespace UStart.Domain.Entities
         public String Bairro { get; private set; }
         public String EstadoId { get; private set; }
         public String CidadeId { get; private set; }
-        public String CidadeNome { get; private set; }
         public String CEP { get; private set; }
         public String Fone { get; private set; }
         public String Email { get; private set; }
@@ -51,8 +50,7 @@ namespace UStart.Domain.Entities
             Complemento = command.Complemento;                        
             Bairro = command.Bairro;                        
             EstadoId = command.EstadoId;
-            CidadeId = command.CidadeId;                        
-            CidadeNome = command.CidadeNome;                        
+            CidadeId = command.CidadeId;                                              
             CEP = command.CEP;                        
             Fone = command.Fone;                        
             Email = command.Email;                                             

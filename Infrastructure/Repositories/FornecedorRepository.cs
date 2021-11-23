@@ -19,7 +19,7 @@ namespace UStart.Infrastructure.Repositories
 
         public Fornecedor ConsultarPorId(Guid id)
         {
-            return _context.Fornecedor.FirstOrDefault(g => g.Id == id);
+            return _context.Fornecedores.FirstOrDefault(g => g.Id == id);
         }
 
         public IEnumerable<Fornecedor> Pesquisar(string pesquisa)

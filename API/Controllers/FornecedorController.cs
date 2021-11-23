@@ -18,7 +18,7 @@ namespace UStart.API.Controllers
     public class FornecedorController : ControllerBase
     {
         private readonly IFornecedorRepository fornecedorRepository;
-        private readonly FornecedorWorkflow FornecedorWorkflow;
+        private readonly FornecedorWorkflow fornecedorWorkflow;
 
         public FornecedorController(IFornecedorRepository fornecedorRepository, FornecedorWorkflow fornecedorWorkflow)
         {
