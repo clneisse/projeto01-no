@@ -13,18 +13,18 @@ namespace UStart.API.Controllers
     /// </summary>
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/orcamento")]
+    [Route("api/v{version:apiVersion}/caixa")]
     [Authorize]
-    public class OrcamentoController : ControllerBase
+    public class CaixaController : ControllerBase
     {
-        private readonly IOrcamentoRepository _orcamentoRepository;
-        private readonly OrcamentoWorkflow _orcamentoWorkflow;
-        public OrcamentoController(
-            IOrcamentoRepository orcamentoRepository, 
-            OrcamentoWorkflow orcamentoWorkflow)
+        private readonly ICaixaRepository _caixaRepository;
+        private readonly CaixaWorkflow _caixaWorkflow;
+        public CaixaController(
+            ICaixaRepository caixaRepository, 
+            CaixaWorkflow caixaWorkflow)
         {
-            _orcamentoRepository = orcamentoRepository;
-            _orcamentoWorkflow = orcamentoWorkflow;
+            _caixaRepository = caixaRepository;
+            _caixaWorkflow = caixaWorkflow;
         }
 
         /// <summary>
@@ -34,14 +34,14 @@ namespace UStart.API.Controllers
         [HttpGet]        
         public IActionResult Get([FromQuery]string pesquisa)
         {
-            return Ok(_orcamentoRepository.Pesquisar(pesquisa));
+            return Ok(_caixaRepository.Pesquisar(pesquisa));
         }
 
         [HttpGet("totais-por-data")]        
-        public IActionResult GetTotais([FromBody] FiltroOrcamentoCommand filtro)
+        public IActionResult GetTotais([FromBody] FiltroCaixaCommand filtro)
         {             
             //DateTime dtInicial, DateTime dtFinal
-            return Ok(_orcamentoRepository.ConsultarTotaisOrcamento(filtro.dtInicial, filtro.dtFinal));
+            return Ok(_caixaRepository.ConsultarTotaisCaixa(filtro.dtInicial, filtro.dtFinal));
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace UStart.API.Controllers
         [Route("{id}")]    
         public IActionResult GetPorId([FromRoute] Guid id)
         {
-            return Ok(_orcamentoRepository.GetOrcamentoResultPorId(id));
+            return Ok(_caixaRepository.GetCaixaResultPorId(id));
         }
 
         /// <summary>
@@ -62,17 +62,17 @@ namespace UStart.API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]            
-        public IActionResult Adicionar([FromBody] OrcamentoCommand command)
+        public IActionResult Adicionar([FromBody] CaixaCommand command)
         {
             //Pega o usuário do token
             command.UsuarioId = new Guid(this.HttpContext.GetUsuarioId());
             
-            _orcamentoWorkflow.Add(command);
-            if (_orcamentoWorkflow.IsValid())
+            _caixaWorkflow.Add(command);
+            if (_caixaWorkflow.IsValid())
             {
                 return Ok();
             }
-            return BadRequest(_orcamentoWorkflow.GetErrors());
+            return BadRequest(_caixaWorkflow.GetErrors());
         }
 
         /// <summary>
@@ -83,18 +83,18 @@ namespace UStart.API.Controllers
         /// <returns></returns>
         [HttpPut] 
         [Route("{id}")]           
-        public IActionResult Atualizar([FromRoute] Guid id, [FromBody] OrcamentoCommand command)
+        public IActionResult Atualizar([FromRoute] Guid id, [FromBody] CaixaCommand command)
         {
             //Pega o usuário do token
             command.UsuarioId = new Guid(this.HttpContext.GetUsuarioId());
 
             //
-            _orcamentoWorkflow.Update(id, command);
-            if (_orcamentoWorkflow.IsValid())
+            _caixaWorkflow.Update(id, command);
+            if (_caixaWorkflow.IsValid())
             {
                 return Ok();
             }
-            return BadRequest(_orcamentoWorkflow.GetErrors());
+            return BadRequest(_caixaWorkflow.GetErrors());
         }
 
         /// <summary>
@@ -105,12 +105,12 @@ namespace UStart.API.Controllers
         [HttpDelete("{id}")]            
         public IActionResult Deletar([FromRoute] Guid id)
         {
-            _orcamentoWorkflow.Delete(id);
-            if (_orcamentoWorkflow.IsValid())
+            _caixaWorkflow.Delete(id);
+            if (_caixaWorkflow.IsValid())
             {
                 return Ok();
             }
-            return BadRequest(_orcamentoWorkflow.GetErrors());
+            return BadRequest(_caixaWorkflow.GetErrors());
         }
 
 

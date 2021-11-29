@@ -3,11 +3,11 @@ using UStart.Domain.Commands;
 
 namespace UStart.Domain.Entities
 {
-    public class OrcamentoItem
+    public class CaixaItem
     {
         public Guid Id { get; private set; }
-        public Guid OrcamentoId { get; private set; }
-        public Orcamento Orcamento { get; private set; }
+        public Guid CaixaId { get; private set; }
+        public Caixa Caixa { get; private set; }
         public Guid ProdutoId { get; private set; }
         public Produto Produto { get; private set; }
         public String Observacao { get; private set; }
@@ -17,26 +17,26 @@ namespace UStart.Domain.Entities
         public Decimal TotalUnitario { get; private set; }
         public Decimal TotalItem { get; private set; }
 
-        public OrcamentoItem()
+        public CaixaItem()
         {
             
         }
 
-        public OrcamentoItem(OrcamentoItemCommand command)
+        public CaixaItem(CaixaItemCommand command)
         {
             //Id = command.Id == Guid.Empty ? Guid.NewGuid() : command.Id;      
             AtualizarCampos(command);
         }
 
-        public void Update(OrcamentoItemCommand command)
+        public void Update(CaixaItemCommand command)
         {
             AtualizarCampos(command);
         }
 
-        private void AtualizarCampos(OrcamentoItemCommand command)
+        private void AtualizarCampos(CaixaItemCommand command)
         {
             this.Id = command.Id;                    
-            this.OrcamentoId = command.OrcamentoId;                    
+            this.CaixaId = command.CaixaId;                    
             this.ProdutoId = command.ProdutoId;                    
             this.Observacao = command.Observacao;                    
             this.Quantidade = command.Quantidade;                    

@@ -6,22 +6,22 @@ using UStart.Domain.UoW;
 
 namespace UStart.Domain.Workflows
 {
-    public class OrcamentoWorkflow : WorkflowBase
+    public class CaixaWorkflow : WorkflowBase
     {
-        private readonly IOrcamentoRepository _orcamentoRepository;
+        private readonly ICaixaRepository _caixaRepository;
         
         private readonly IProdutoRepository _produtoRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public OrcamentoWorkflow(IOrcamentoRepository orcamentoRepository,
+        public CaixaWorkflow(ICaixaRepository caixaRepository,
         IProdutoRepository produtoRepository, IUnitOfWork unitOfWork)
         {
-            _orcamentoRepository = orcamentoRepository;
+            _caixaRepository = caixaRepository;
             _unitOfWork = unitOfWork;
             _produtoRepository = produtoRepository;
         }
 
-        public void Add(OrcamentoCommand command)
+        public void Add(CaixaCommand command)
         {
 
             if (command.UsuarioId.HasValue == false)
@@ -33,16 +33,16 @@ namespace UStart.Domain.Workflows
             {
                 return;
             }
-            var orcamento = new Orcamento(command);
-            _orcamentoRepository.Add(orcamento);
+            var caixa = new Caixa(command);
+            _caixaRepository.Add(caixa);
             _unitOfWork.Commit();
 
             return;
         }
 
-        public void Update(Guid id, OrcamentoCommand command)
+        public void Update(Guid id, CaixaCommand command)
         {
-            var orcamento = _orcamentoRepository.ConsultarPorId(id);
+            var caixa = _caixaRepository.ConsultarPorId(id);
 
             if (!this.IsValid())
             {
@@ -50,15 +50,15 @@ namespace UStart.Domain.Workflows
             }
 
 
-            if (orcamento != null)
+            if (caixa != null)
             {
-                orcamento.Update(command);
-                _orcamentoRepository.Update(orcamento);
+                caixa.Update(command);
+                _caixaRepository.Update(caixa);
                 _unitOfWork.Commit();
             }
             else
             {
-                AddError("Orcamento", "Orçamento não encontrado", id);
+                AddError("Registro de caixa", "Registro de caixa não encontrado", id);
             }
         }
 
@@ -66,23 +66,23 @@ namespace UStart.Domain.Workflows
         {
             try
             {
-                var orcamento = _orcamentoRepository.ConsultarPorId(id);
-                if (orcamento == null)
+                var caixa = _caixaRepository.ConsultarPorId(id);
+                if (caixa == null)
                 {
-                    AddError("Orcamento", "Orçamento de dados não encontrado", id);
+                    AddError("Registro de caixa", "Registro de caixa não encontrado", id);
                 }
                 if (!IsValid())
                 {
                     return;
                 }
 
-                _orcamentoRepository.Delete(orcamento);
+                _caixaRepository.Delete(caixa);
                 _unitOfWork.Commit();
             }
             catch (System.Exception exp)
             {
                 if (this.isDevelopment())
-                    AddException("Orcamento", exp);
+                    AddException("Caixa", exp);
                 else throw;
             }
         }
