@@ -37,6 +37,8 @@ dotnet ef migrations add usuarios_nome -c UStartContext --project ../Infrastruct
 #Criar grupo produto
 dotnet ef migrations add grupo_produto -c UStartContext --project ../Infrastructure/Infrastructure.csproj
 
+
+
 #Criar clientes
 cd API
 dotnet ef migrations add fornecedor -c UStartContext --project ../Infrastructure/Infrastructure.csproj
