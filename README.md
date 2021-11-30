@@ -35,7 +35,7 @@ dotnet ef migrations add usuarios -c UStartContext --project ../Infrastructure/I
 dotnet ef migrations add usuarios_nome -c UStartContext --project ../Infrastructure/Infrastructure.csproj
 
 #Criar grupo produto
-dotnet ef migrations add grupo_produto -c UStartContext --project ../Infrastructure/Infrastructure.csproj
+dotnet ef migrations add caixa -c UStartContext --project ../Infrastructure/Infrastructure.csproj
 
 
 

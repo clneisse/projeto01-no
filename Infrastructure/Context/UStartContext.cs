@@ -22,8 +22,8 @@ namespace UStart.Infrastructure.Context
         }
 
         public DbSet<FormaPagamento> FormasPagamentos { get; set; } 
-        public DbSet<Orcamento> Orcamentos { get; set; }
-        public DbSet<OrcamentoItem> OrcamentosItens { get; set; }
+        public DbSet<Caixa> Caixas { get; set; }
+        public DbSet<CaixaItem> CaixasItens { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<PedidoItem> PedidosItens { get; set; }
         public DbSet<GrupoProduto> GrupoProdutos { get; set; }
@@ -58,12 +58,12 @@ namespace UStart.Infrastructure.Context
                 .HasColumnType("jsonb");                
             });
 
-            modelBuilder.Entity<Orcamento>(entity =>
+            modelBuilder.Entity<Caixa>(entity =>
             {
                 entity
                     .HasMany(or => or.Itens)
-                    .WithOne(item => item.Orcamento)
-                    .HasForeignKey(item => item.OrcamentoId);
+                    .WithOne(item => item.Caixa)
+                    .HasForeignKey(item => item.CaixaId);
                                         
             });
 
