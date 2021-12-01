@@ -17,14 +17,14 @@ namespace UStart.API.Controllers
     [Authorize]
     public class CaixaController : ControllerBase
     {
-        private readonly ICaixaRepository _caixaRepository;
-        private readonly CaixaWorkflow _caixaWorkflow;
+        private readonly ICaixaRepository caixaRepository;
+        private readonly CaixaWorkflow caixaWorkflow;
         public CaixaController(
             ICaixaRepository caixaRepository, 
             CaixaWorkflow caixaWorkflow)
         {
-            _caixaRepository = caixaRepository;
-            _caixaWorkflow = caixaWorkflow;
+            this.caixaRepository = caixaRepository;
+            this.caixaWorkflow = caixaWorkflow;
         }
 
         /// <summary>
@@ -34,14 +34,14 @@ namespace UStart.API.Controllers
         [HttpGet]        
         public IActionResult Get([FromQuery]string pesquisa)
         {
-            return Ok(_caixaRepository.Pesquisar(pesquisa));
+            return Ok(caixaRepository.Pesquisar(pesquisa));
         }
 
         [HttpGet("totais-por-data")]        
         public IActionResult GetTotais([FromBody] FiltroCaixaCommand filtro)
         {             
             //DateTime dtInicial, DateTime dtFinal
-            return Ok(_caixaRepository.ConsultarTotaisCaixa(filtro.dtInicial, filtro.dtFinal));
+            return Ok(caixaRepository.ConsultarTotaisCaixa(filtro.dtInicial, filtro.dtFinal));
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace UStart.API.Controllers
         [Route("{id}")]    
         public IActionResult GetPorId([FromRoute] Guid id)
         {
-            return Ok(_caixaRepository.GetCaixaResultPorId(id));
+            return Ok(caixaRepository.GetCaixaResultPorId(id));
         }
 
         /// <summary>
@@ -67,12 +67,12 @@ namespace UStart.API.Controllers
             //Pega o usuário do token
             command.UsuarioId = new Guid(this.HttpContext.GetUsuarioId());
             
-            _caixaWorkflow.Add(command);
-            if (_caixaWorkflow.IsValid())
+            caixaWorkflow.Add(command);
+            if (caixaWorkflow.IsValid())
             {
                 return Ok();
             }
-            return BadRequest(_caixaWorkflow.GetErrors());
+            return BadRequest(caixaWorkflow.GetErrors());
         }
 
         /// <summary>
@@ -89,12 +89,12 @@ namespace UStart.API.Controllers
             command.UsuarioId = new Guid(this.HttpContext.GetUsuarioId());
 
             //
-            _caixaWorkflow.Update(id, command);
-            if (_caixaWorkflow.IsValid())
+            caixaWorkflow.Update(id, command);
+            if (caixaWorkflow.IsValid())
             {
                 return Ok();
             }
-            return BadRequest(_caixaWorkflow.GetErrors());
+            return BadRequest(caixaWorkflow.GetErrors());
         }
 
         /// <summary>
@@ -105,12 +105,12 @@ namespace UStart.API.Controllers
         [HttpDelete("{id}")]            
         public IActionResult Deletar([FromRoute] Guid id)
         {
-            _caixaWorkflow.Delete(id);
-            if (_caixaWorkflow.IsValid())
+            caixaWorkflow.Delete(id);
+            if (caixaWorkflow.IsValid())
             {
                 return Ok();
             }
-            return BadRequest(_caixaWorkflow.GetErrors());
+            return BadRequest(caixaWorkflow.GetErrors());
         }
 
 
