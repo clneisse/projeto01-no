@@ -10,7 +10,7 @@ namespace UStart.Domain.Contracts.Repositories
         Produto ConsultarPorId(Guid id);
         void Delete(Produto Produto);
         IEnumerable<Produto> Pesquisar(string pesquisa);
+        IEnumerable<Produto> RetornarTodos();
         void Update(Produto Produto);
     }
-
 }
