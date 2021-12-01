@@ -8,17 +8,17 @@ namespace UStart.Domain.Workflows
 {
     public class CaixaWorkflow : WorkflowBase
     {
-        private readonly ICaixaRepository _caixaRepository;
+        private readonly ICaixaRepository caixaRepository;
         
-        private readonly IProdutoRepository _produtoRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IProdutoRepository produtoRepository;
+        private readonly IUnitOfWork unitOfWork;
 
         public CaixaWorkflow(ICaixaRepository caixaRepository,
         IProdutoRepository produtoRepository, IUnitOfWork unitOfWork)
         {
-            _caixaRepository = caixaRepository;
-            _unitOfWork = unitOfWork;
-            _produtoRepository = produtoRepository;
+            this.caixaRepository = caixaRepository;
+            this.unitOfWork = unitOfWork;
+            this.produtoRepository = produtoRepository;
         }
 
         public void Add(CaixaCommand command)
@@ -34,15 +34,15 @@ namespace UStart.Domain.Workflows
                 return;
             }
             var caixa = new Caixa(command);
-            _caixaRepository.Add(caixa);
-            _unitOfWork.Commit();
+            caixaRepository.Add(caixa);
+            unitOfWork.Commit();
 
             return;
         }
 
         public void Update(Guid id, CaixaCommand command)
         {
-            var caixa = _caixaRepository.ConsultarPorId(id);
+            var caixa = caixaRepository.ConsultarPorId(id);
 
             if (!this.IsValid())
             {
@@ -53,8 +53,8 @@ namespace UStart.Domain.Workflows
             if (caixa != null)
             {
                 caixa.Update(command);
-                _caixaRepository.Update(caixa);
-                _unitOfWork.Commit();
+                caixaRepository.Update(caixa);
+                unitOfWork.Commit();
             }
             else
             {
@@ -66,7 +66,7 @@ namespace UStart.Domain.Workflows
         {
             try
             {
-                var caixa = _caixaRepository.ConsultarPorId(id);
+                var caixa = caixaRepository.ConsultarPorId(id);
                 if (caixa == null)
                 {
                     AddError("Registro de caixa", "Registro de caixa não encontrado", id);
@@ -76,8 +76,8 @@ namespace UStart.Domain.Workflows
                     return;
                 }
 
-                _caixaRepository.Delete(caixa);
-                _unitOfWork.Commit();
+                caixaRepository.Delete(caixa);
+                unitOfWork.Commit();
             }
             catch (System.Exception exp)
             {
