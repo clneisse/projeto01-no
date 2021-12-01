@@ -8,6 +8,7 @@ namespace UStart.Domain.Commands
         public Guid Id { get; set; }
         public DateTime DataCaixa { get; set; }
         public Guid? UsuarioId { get; set; }        
+        public Guid Usuario { get; set; }
         public Guid FormaPagamentoId { get; set; }        
         public String Observacao { get; set; }
         public IList<CaixaItemCommand> Itens { get; set; }
