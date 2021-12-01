@@ -2,7 +2,7 @@
 
 namespace UStart.Infrastructure.Migrations
 {
-    public partial class fornecedor : Migration
+    public partial class produtos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
