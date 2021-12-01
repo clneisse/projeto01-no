@@ -16,14 +16,14 @@ namespace UStart.API.Controllers
     [Authorize]
     public class ProdutoController : ControllerBase
     {
-        private readonly IProdutoRepository _produtoRepository;
-        private readonly ProdutoWorkflow _produtoWorkflow;
+        private readonly IProdutoRepository produtoRepository;
+        private readonly ProdutoWorkflow produtoWorkflow;
         public ProdutoController(
             IProdutoRepository produtoRepository, 
             ProdutoWorkflow produtoWorkflow)
         {
-            _produtoRepository = produtoRepository;
-            _produtoWorkflow = produtoWorkflow;
+            this.produtoRepository = produtoRepository;
+            this.produtoWorkflow = produtoWorkflow;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace UStart.API.Controllers
         [HttpGet]        
         public IActionResult Get()
         {
-            return Ok(_produtoRepository.RetornarTodos());
+            return Ok(produtoRepository.RetornarTodos());
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace UStart.API.Controllers
         [Route("{id}")]    
         public IActionResult GetPorId([FromRoute] Guid id)
         {
-            return Ok(_produtoRepository.ConsultarPorId(id));
+            return Ok(produtoRepository.ConsultarPorId(id));
         }
 
         /// <summary>
@@ -56,12 +56,12 @@ namespace UStart.API.Controllers
         [HttpPost]            
         public IActionResult Adicionar([FromBody] ProdutoCommand command)
         {
-            _produtoWorkflow.Add(command);
-            if (_produtoWorkflow.IsValid())
+            produtoWorkflow.Add(command);
+            if (produtoWorkflow.IsValid())
             {
                 return Ok();
             }
-            return BadRequest(_produtoWorkflow.GetErrors());
+            return BadRequest(produtoWorkflow.GetErrors());
         }
 
         /// <summary>
@@ -74,12 +74,12 @@ namespace UStart.API.Controllers
         [Route("{id}")]           
         public IActionResult Atualizar([FromRoute] Guid id, [FromBody] ProdutoCommand command)
         {
-            _produtoWorkflow.Update(id, command);
-            if (_produtoWorkflow.IsValid())
+            produtoWorkflow.Update(id, command);
+            if (produtoWorkflow.IsValid())
             {
                 return Ok();
             }
-            return BadRequest(_produtoWorkflow.GetErrors());
+            return BadRequest(produtoWorkflow.GetErrors());
         }
 
         /// <summary>
@@ -90,12 +90,12 @@ namespace UStart.API.Controllers
         [HttpDelete("{id}")]            
         public IActionResult Deletar([FromRoute] Guid id)
         {
-            _produtoWorkflow.Delete(id);
-            if (_produtoWorkflow.IsValid())
+            produtoWorkflow.Delete(id);
+            if (produtoWorkflow.IsValid())
             {
                 return Ok();
             }
-            return BadRequest(_produtoWorkflow.GetErrors());
+            return BadRequest(produtoWorkflow.GetErrors());
         }
 
 
